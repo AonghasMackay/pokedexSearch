@@ -29,8 +29,6 @@ function fillPokemonData(pokemonJSON, documentFragment) {
     const appearsInCollapse = createAppearsInCollapse(pokemonJSON);
     documentFragment.querySelector('#pokemonDetails').appendChild(appearsInCollapse);
 
-    console.log(pokemonJSON);
-
     return documentFragment;
 }
 

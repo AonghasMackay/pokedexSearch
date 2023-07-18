@@ -139,27 +139,47 @@ function searchPokemon(inputEvent) {
 
     let searchResults = getSearchResults(search);
 
+    //fill search results container with search results
     searchResults.forEach(pokemon => {
         cloneSearchResultTemplate(pokemon);
     });
 }
 
+/**
+ * Clears the main content container
+ * @returns {void}
+ */
 function clearPage() {
     MAIN_CONTENT_CONTAINER.innerHTML = '';
 }
 
+/**
+ * Gets the current pokemons details and pass them to the pokemon handler to display them
+ * @param {clickEvent} clickEvent 
+ * @returns {void}
+ */
 async function displayPokemon(clickEvent) {
+    //set the current pokemon in the cache
     POKEMON_CACHE.currentPokemon.name = clickEvent.target.dataset.pokemonName;
 
+    //get the pokemon details from the API
     const pokemonJSON = await pokemonHandler.getPokemon(POKEMON_CACHE.currentPokemon.name, ENDPOINT);
+
+    //clear the page and display the pokemon details
     clearPage();
     switchToPokemonDetailsPage(pokemonJSON);
 }
 
+/**
+ * Displays the current pokemon details page via the pokemon handler
+ * @param {object} pokemonJSON 
+ * @returns {void}
+ */
 function switchToPokemonDetailsPage(pokemonJSON) {
     //clone the document fragment
     const pokemonDetailsPageNode = POKEMON_DETAILS_PAGE_TEMPLATE.content.cloneNode(true);
 
+    //fill the document fragment with the pokemon details and add it to the DOM
     const filledNode = pokemonHandler.fillPokemonData(pokemonJSON, pokemonDetailsPageNode);
     MAIN_CONTENT_CONTAINER.appendChild(filledNode);
 }
