@@ -99,10 +99,18 @@ function getSearchResults(search) {
     return combinedSearchResults;
 }
 
+/**
+ * Clones the search result template, fills it with the pokemon data, sets up the event listeners and adds it to the DOM
+ * @param {object} pokemon 
+ * @returns {void}
+ */
 function cloneSearchResultTemplate(pokemon) {
+    //clone the document fragment
     const searchResultNode = SEARCH_RESULT_TEMPLATE.content.cloneNode(true);
+    //assign the button
     const nodeButton = searchResultNode.querySelector('a');
 
+    //fill the template with the pokemon data
     searchResultNode.querySelector('#pokemonName').innerText = pokemon.name;
     nodeButton.setAttribute('data-pokemon-name', pokemon.name);
 
@@ -113,6 +121,11 @@ function cloneSearchResultTemplate(pokemon) {
     searchResultsContainer.appendChild(searchResultNode);
 }
 
+/**
+ * Takes the input from the search bar and handles the search logic and updating the search results
+ * @param {InputEvent} inputEvent 
+ * @returns {void}
+ */
 function searchPokemon(inputEvent) {
     search = inputEvent.target.value;
 
