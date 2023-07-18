@@ -1,5 +1,12 @@
 'use strict';
 
+/**
+ * Get a specific pokemons details from the API
+ * @param {object} pokemon 
+ * @param {string} endpoint 
+ * @returns {object}
+ * @async
+ */
 async function getPokemon(pokemon, endpoint) {
     let response = await fetch(endpoint + 'pokemon/' + pokemon);
     let responseJson = await response.json();
@@ -7,10 +14,18 @@ async function getPokemon(pokemon, endpoint) {
     return responseJson;
 }
 
+/**
+ * Fills the pokemon details template with the pokemon data
+ * @param {object} pokemonJSON 
+ * @param {documentFragment} documentFragment 
+ * @returns {DocumentFragment}
+ */
 function fillPokemonData(pokemonJSON, documentFragment) {
+    //set pokemon name and sprite
     documentFragment.querySelector('#pokemonName').textContent = pokemonJSON.name;
     documentFragment.querySelector('#pokemonSprite').src = pokemonJSON.sprites.front_default;
 
+    //create and append the pokemon detail elements
     const statsCollapse = createStatsCollapse(pokemonJSON);
     documentFragment.querySelector('#pokemonDetails').appendChild(statsCollapse);
 
@@ -32,6 +47,11 @@ function fillPokemonData(pokemonJSON, documentFragment) {
     return documentFragment;
 }
 
+/**
+ * Create a DocumentFragment showing which games the pokemon appears in
+ * @param {object} pokemonJSON 
+ * @returns {DocumentFragment}
+ */
 function createAppearsInCollapse(pokemonJSON) {
     const detailsCollapseTemplate = document.querySelector('#pokemonDetailsCollapseTemplate');
 
@@ -48,6 +68,11 @@ function createAppearsInCollapse(pokemonJSON) {
     return appearsInCollapse;
 }
 
+/**
+ * Create an element the pokemons height
+ * @param {object} pokemonJSON 
+ * @returns {Element}
+ */
 function createHeightElem(pokemonJSON) {
     const heightElem = document.createElement('span');
     const pokemonHeight = pokemonJSON.height / 10;
@@ -57,6 +82,11 @@ function createHeightElem(pokemonJSON) {
     return heightElem;
 }
 
+/**
+ * Create a DocumentFragment showing the pokemons possible moves
+ * @param {object} pokemonJSON 
+ * @returns {DocumentFragment}
+ */
 function createMovesCollapse(pokemonJSON) {
     const detailsCollapseTemplate = document.querySelector('#pokemonDetailsCollapseTemplate');
 
@@ -73,6 +103,11 @@ function createMovesCollapse(pokemonJSON) {
     return movesCollapse;
 }
 
+/**
+ * Create an element showing the pokemons types
+ * @param {object} pokemonJSON 
+ * @returns {Element}
+ */
 function createTypesElem(pokemonJSON) {
     const typesElem = document.createElement('span');
     typesElem.innerHTML = '<strong>Types:</strong> ';
@@ -88,6 +123,11 @@ function createTypesElem(pokemonJSON) {
     return typesElem;
 }
 
+/**
+ * Create an element showing the pokemons weight
+ * @param {object} pokemonJSON 
+ * @returns {Element}
+ */
 function createWeightElem(pokemonJSON) {
     const weightElem = document.createElement('span');
     const pokemonWeight = pokemonJSON.weight / 10;
@@ -97,6 +137,11 @@ function createWeightElem(pokemonJSON) {
     return weightElem;
 }
 
+/**
+ * Create an element showing the pokemons base stats
+ * @param {object} pokemonJSON 
+ * @returns {DocumentFragment}
+ */
 function createStatsCollapse(pokemonJSON) {
     const detailsCollapseTemplate = document.querySelector('#pokemonDetailsCollapseTemplate');
 
