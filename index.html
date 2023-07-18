@@ -41,8 +41,29 @@
         </a>
     </template>
 
-    <template id="pokemonDetailsTemplate">
+    <template id="pokemonDetailsPageTemplate">
+        <div id="pokemonDetailsPage">
+            <button id="backToSearchButton">Back to search</button>
+            <hr />
+            <div id="pokemonDetailsContainer">
+                <div id="pokemonDetailsHeader">
+                    <h1 id="pokemonName"></h1>
+                    <img id="pokemonSprite" src="" alt="">
+                </div>
+                <div id="pokemonDetails">
+                    <div id="pokemonStats">
 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="pokemonDetailsCollapseTemplate">
+        <details>
+            <summary id="pokemonDetailsCollapseSummary"></summary>
+            <div id="pokemonDetailsCollapseContent"></div>
+        </details>
     </template>
 
     <script src="main.js" type="module"></script>

@@ -23,6 +23,7 @@ const POKEMON_CACHE = {
 const MAIN_CONTENT_CONTAINER = document.querySelector('#mainContent');
 const SEARCH_PAGE_TEMPLATE = document.querySelector('#searchPageTemplate');
 const SEARCH_RESULT_TEMPLATE = document.querySelector('#searchResultTemplate');
+const POKEMON_DETAILS_PAGE_TEMPLATE = document.querySelector('#pokemonDetailsPageTemplate');
 
 /**
  * Global variables
@@ -115,9 +116,7 @@ function cloneSearchResultTemplate(pokemon) {
 
     //fill the template with the pokemon data
     searchResultNode.querySelector('#pokemonName').innerText = pokemon.name;
-    nodeButton.setAttribute('data-pokemon-name', pokemon.name);
-
-    POKEMON_CACHE.currentPokemon.name = pokemon.name;
+    searchResultNode.querySelector('#pokemonName').setAttribute('data-pokemon-name', pokemon.name);
 
     nodeButton.addEventListener('click', displayPokemon);
 
@@ -145,6 +144,22 @@ function searchPokemon(inputEvent) {
     });
 }
 
-function displayPokemon() {
-    const pokemonJSON = pokemonHandler.getPokemon(POKEMON_CACHE.currentPokemon.name, ENDPOINT);
+function clearPage() {
+    MAIN_CONTENT_CONTAINER.innerHTML = '';
+}
+
+async function displayPokemon(clickEvent) {
+    POKEMON_CACHE.currentPokemon.name = clickEvent.target.dataset.pokemonName;
+
+    const pokemonJSON = await pokemonHandler.getPokemon(POKEMON_CACHE.currentPokemon.name, ENDPOINT);
+    clearPage();
+    switchToPokemonDetailsPage(pokemonJSON);
+}
+
+function switchToPokemonDetailsPage(pokemonJSON) {
+    //clone the document fragment
+    const pokemonDetailsPageNode = POKEMON_DETAILS_PAGE_TEMPLATE.content.cloneNode(true);
+
+    const filledNode = pokemonHandler.fillPokemonData(pokemonJSON, pokemonDetailsPageNode);
+    MAIN_CONTENT_CONTAINER.appendChild(filledNode);
 }
