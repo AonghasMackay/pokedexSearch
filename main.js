@@ -45,10 +45,6 @@ function initialise() {
     fillCache();
     //clone the search page template and add it to the DOM
     setupPage();
-
-    //add event listener to search bar
-    const searchBar = document.querySelector('#searchbar');
-    searchBar.addEventListener('input', searchPokemon);
 }
 
 /**
@@ -75,6 +71,10 @@ function setupPage() {
     MAIN_CONTENT_CONTAINER.appendChild(node);
 
     searchResultsContainer = document.querySelector('#searchResultsContainer');
+
+    //add event listener to search bar
+    const searchBar = document.querySelector('#searchbar');
+    searchBar.addEventListener('input', searchPokemon);
 }
 
 /**
@@ -146,6 +146,15 @@ function searchPokemon(inputEvent) {
 }
 
 /**
+ * Clears the page and reruns the setup for the search page
+ * @returns {void}
+ */
+function returnToSearch() {
+    clearPage();
+    setupPage();
+}
+
+/**
  * Clears the main content container
  * @returns {void}
  */
@@ -181,5 +190,7 @@ function switchToPokemonDetailsPage(pokemonJSON) {
 
     //fill the document fragment with the pokemon details and add it to the DOM
     const filledNode = pokemonHandler.fillPokemonData(pokemonJSON, pokemonDetailsPageNode);
+
+    filledNode.querySelector('#backToSearchButton').addEventListener('click', returnToSearch);
     MAIN_CONTENT_CONTAINER.appendChild(filledNode);
 }
