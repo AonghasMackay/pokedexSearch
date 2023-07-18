@@ -7,37 +7,65 @@
 
 'use strict';
 
+/**
+ * Constants
+ */
 const ENDPOINT = 'https://pokeapi.co/api/v2/';
+//So we can cache the results of the API call and not have to call it repeatedly for each search
 const POKEMON_CACHE = {
     allPokemon: []
 };
+
+//DOM elements and templates
 const MAIN_CONTENT_CONTAINER = document.querySelector('#mainContent');
 const SEARCH_PAGE_TEMPLATE = document.querySelector('#searchPageTemplate');
 const SEARCH_RESULT_TEMPLATE = document.querySelector('#searchResultTemplate');
 
+/**
+ * Global variables
+ */
 let search = '';
+//needs to be accessible globally
 let searchResultsContainer;
 
-//when document is ready in vanilla js
 document.addEventListener("DOMContentLoaded", function() {
     initialise();
 });
 
+/**
+ * Initialises the page
+ * @returns {void}
+ */
 function initialise() {
+    //fill the cache with all the pokemon
     fillCache();
+    //clone the search page template and add it to the DOM
     setupPage();
 
+    //add event listener to search bar
     const searchBar = document.querySelector('#searchbar');
     searchBar.addEventListener('input', searchPokemon);
 }
 
+/**
+ * Fills the cache with all pokemon
+ * @returns {void}
+ * @async
+ */
 async function fillCache() {
+    //fetch all pokemon
     let response = await fetch(ENDPOINT + 'pokemon/?limit=3000&offset=0');
     let responseJson = await response.json();
 
+    //fill cache
     POKEMON_CACHE.allPokemon = responseJson.results;
 }
 
+/**
+ * Clones the search page template and adds it to the DOM
+ * Then sets the searchResultsContainer global variable
+ * @returns {void}
+ */
 function setupPage() {
     const node = SEARCH_PAGE_TEMPLATE.content.cloneNode(true);
     MAIN_CONTENT_CONTAINER.appendChild(node);
@@ -45,10 +73,19 @@ function setupPage() {
     searchResultsContainer = document.querySelector('#searchResultsContainer');
 }
 
+/**
+ * Clears the search results container
+ * @returns {void}
+ */
 function clearSearchResults() {
     searchResultsContainer.innerHTML = '';
 }
 
+/**
+ * Filter the pokemon in the cache by search string
+ * @param {string} search 
+ * @returns {Array}
+ */
 function getSearchResults(search) {
     //search in cache for pokemon containing search string
     //put the pokemon that start with search string first
@@ -56,6 +93,7 @@ function getSearchResults(search) {
     const searchResultsStartsWith = searchResults.filter(pokemon => pokemon.name.startsWith(search));
     const searchResultsContains = searchResults.filter(pokemon => !pokemon.name.startsWith(search));
     
+    //add pokemon that don't start with search string to the end of the array of pokemon that do
     const combinedSearchResults = searchResultsStartsWith.concat(searchResultsContains);
 
     return combinedSearchResults;
