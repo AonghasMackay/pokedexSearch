@@ -7,13 +7,16 @@
 
 'use strict';
 
+import * as pokemonHandler from './modules/pokemonHandler.js';
+
 /**
  * Constants
  */
 const ENDPOINT = 'https://pokeapi.co/api/v2/';
 //So we can cache the results of the API call and not have to call it repeatedly for each search
 const POKEMON_CACHE = {
-    allPokemon: []
+    allPokemon: [],
+    currentPokemon: {}
 };
 
 //DOM elements and templates
@@ -114,9 +117,9 @@ function cloneSearchResultTemplate(pokemon) {
     searchResultNode.querySelector('#pokemonName').innerText = pokemon.name;
     nodeButton.setAttribute('data-pokemon-name', pokemon.name);
 
-    nodeButton.addEventListener('click', function() {
-        alert('You clicked on ' + pokemon.name);
-    });
+    POKEMON_CACHE.currentPokemon.name = pokemon.name;
+
+    nodeButton.addEventListener('click', displayPokemon);
 
     searchResultsContainer.appendChild(searchResultNode);
 }
@@ -140,4 +143,8 @@ function searchPokemon(inputEvent) {
     searchResults.forEach(pokemon => {
         cloneSearchResultTemplate(pokemon);
     });
+}
+
+function displayPokemon() {
+    const pokemonJSON = pokemonHandler.getPokemon(POKEMON_CACHE.currentPokemon.name, ENDPOINT);
 }

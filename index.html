@@ -5,6 +5,7 @@
         <title>Pokemon Search</title>
         <link rel="icon" href="favicon.ico" type="image/x-icon">
     </head>
+
     <body>
         <main>
             <section id="mainContent">
@@ -14,12 +15,22 @@
     </body>
 
     <template id="searchPageTemplate">
-        <div>
+        <div class="searchPage">
+            <label>Search a pokemon:</label>
             <input id="searchbar" name="searchbar" type="search">
+            <hr />
             <div id="searchResultsContainer">
 
             </div>
         </div>
+
+        <style>
+            .searchPage label {
+                font-size: 1.25em;
+                margin-bottom: 15px;
+                display: block;
+            }   
+        </style>
     </template>
 
     <template id="searchResultTemplate">
@@ -30,5 +41,10 @@
         </a>
     </template>
 
-    <script src="main.js"></script>
+    <template id="pokemonDetailsTemplate">
+
+    </template>
+
+    <script src="main.js" type="module"></script>
+    <script src="modules/pokemonHandler.js" type="module"></script>
 </html>
