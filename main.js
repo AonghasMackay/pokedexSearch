@@ -9,7 +9,7 @@
 
 const ENDPOINT = 'https://pokeapi.co/api/v2/';
 const SEARCHBAR = document.querySelector('#searchbar');
-const pokemonCache = {
+const POKEMON_CACHE = {
     allPokemon: []
 };
 let search = '';
@@ -29,7 +29,7 @@ async function fillCache() {
     let response = await fetch(ENDPOINT + 'pokemon/?limit=3000&offset=0');
     let responseJson = await response.json();
 
-    pokemonCache.allPokemon = responseJson.results;
+    POKEMON_CACHE.allPokemon = responseJson.results;
 }
 
 function searchPokemon(inputEvent) {
@@ -41,7 +41,7 @@ function searchPokemon(inputEvent) {
 
     //search in cache for pokemon containing search string
     //put pokemon that start with search string first
-    let searchResults = pokemonCache.allPokemon.filter(pokemon => pokemon.name.includes(search));
+    let searchResults = POKEMON_CACHE.allPokemon.filter(pokemon => pokemon.name.includes(search));
     let searchResultsStartsWith = searchResults.filter(pokemon => pokemon.name.startsWith(search));
     let searchResultsContains = searchResults.filter(pokemon => !pokemon.name.startsWith(search));
     console.log(searchResultsStartsWith);

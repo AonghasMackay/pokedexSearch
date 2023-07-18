@@ -1,2 +1,2 @@
 # pokedexSearch
-Search Pokémon via Poke API. API practice side project
+Search Pokémon via Poke API. Side project for practicing working with APIs
