@@ -7,19 +7,28 @@
     </head>
     <body>
         <main>
-            <section>
-                <input id="searchbar" name="searchbar" type="search">
-                <div id="resultsBox">
+            <section id="mainContent">
 
-                </div>
             </section>
         </main>
     </body>
 
-    <template id="searchResult">
+    <template id="searchPageTemplate">
+        <div>
+            <input id="searchbar" name="searchbar" type="search">
+            <div id="searchResultsContainer">
+
+            </div>
+        </div>
+    </template>
+
+    <template id="searchResultTemplate">
         <a role="button" href="#">
-            <span id="pokemonName" name=""></span>
+            <div>
+                <span id="pokemonName"></span>
+            </div>
         </a>
     </template>
+
     <script src="main.js"></script>
 </html>
