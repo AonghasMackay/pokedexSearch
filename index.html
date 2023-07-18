@@ -36,7 +36,7 @@
     <template id="searchResultTemplate">
         <a role="button" href="#">
             <div>
-                <span id="pokemonName"></span>
+                <span class="pokemonName"></span>
             </div>
         </a>
     </template>
@@ -51,12 +51,20 @@
                     <img id="pokemonSprite" src="" alt="">
                 </div>
                 <div id="pokemonDetails">
-                    <div id="pokemonStats">
-
-                    </div>
                 </div>
             </div>
         </div>
+
+        <style>
+            #pokemonDetails {
+                margin-top: 15px;
+            }
+
+            #pokemonDetails > * {
+                margin-bottom: 10px;
+                display: block;
+            }
+        </style>
     </template>
 
     <template id="pokemonDetailsCollapseTemplate">

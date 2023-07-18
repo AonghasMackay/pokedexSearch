@@ -115,8 +115,8 @@ function cloneSearchResultTemplate(pokemon) {
     const nodeButton = searchResultNode.querySelector('a');
 
     //fill the template with the pokemon data
-    searchResultNode.querySelector('#pokemonName').innerText = pokemon.name;
-    searchResultNode.querySelector('#pokemonName').setAttribute('data-pokemon-name', pokemon.name);
+    searchResultNode.querySelector('.pokemonName').innerText = pokemon.name;
+    searchResultNode.querySelector('.pokemonName').setAttribute('data-pokemon-name', pokemon.name);
 
     nodeButton.addEventListener('click', displayPokemon);
 
